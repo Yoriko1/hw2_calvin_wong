@@ -23,67 +23,69 @@ class CalculatorHome extends StatefulWidget {
 }
 
 class _CalculatorHomeState extends State<CalculatorHome> {
-  String _output = "0";
-  String _input = "";
+  //Create variables
+  String output = "0";
+  String input = "";
   double num1 = 0;
   double num2 = 0;
   String operand = "";
-  bool calculationComplete = false;
+  bool calvulationDone = false;
 
   void buttonPressed(String buttonText) {
     
     //Change state of varibles on button press
     setState(() {
       if (buttonText == "C") {
-        _output = "0";
-        _input = "";
+        output = "0";
+        input = "";
         num1 = 0;
         num2 = 0;
         operand = "";
-        calculationComplete = false;
+        calvulationDone = false;
       //Set Operand
       } else if (buttonText == "+" || buttonText == "-" || buttonText == "×" || buttonText == "÷") {
-        num1 = double.parse(_input);
+        num1 = double.parse(input);
         operand = buttonText;
-        _input = "";
-        calculationComplete = false;      
+        input = "";
+        calvulationDone = false;      
       } else if (buttonText == "=") {
-        num2 = double.parse(_input);
+        num2 = double.parse(input);
 
       //Conditionals for operands
         if (operand == "+") {
-          _output = (num1 + num2).toString();
+          output = (num1 + num2).toString();
         } else if (operand == "-") {
-          _output = (num1 - num2).toString();
+          output = (num1 - num2).toString();
         } else if (operand == "×") {
-          _output = (num1 * num2).toString();
+          output = (num1 * num2).toString();
         } else if (operand == "÷") {
           if(num2 == 0){
-            _output= "Cannot divide by zero.";
+            output= "Cannot divide by zero.";
           }
           else{
-            _output = (num1 / num2).toString();            
+            output = (num1 / num2).toString();            
           }
         }
 
-        _input = _output;
+        input = output;
         num1 = 0;
         num2 = 0;
         operand = "";
-        calculationComplete = true;
+        calvulationDone = true;
       } else {
         //Clear the display and show new number after a calculation is done.
-        if (calculationComplete) {
-          _input = buttonText;
-          calculationComplete = false;
+        if (calvulationDone) {
+          input = buttonText;
+          calvulationDone = false;
         } else {
-          _input += buttonText;
+          input += buttonText;
         }
-        _output = _input;
+        output = input;
       }
     });
   }
 
+  //Buttons for calculator
   Widget buildButton(String buttonText) {
     return Expanded(
       child: TextButton(
@@ -104,15 +106,17 @@ class _CalculatorHomeState extends State<CalculatorHome> {
       ),
       body: Column(
         children: <Widget>[
+          //Display
           Container(
             alignment: Alignment.centerRight,
             padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 12.0),
             child: Text(
-              _output,
+              output,
               style: TextStyle(fontSize: 48.0, fontWeight: FontWeight.bold),
             ),
           ),
           Expanded(child: Divider()),
+          //Create columns and rows for buttons
           Column(children: [
             Row(children: [
               buildButton("7"),
