@@ -29,7 +29,7 @@ class _CalculatorHomeState extends State<CalculatorHome> {
   double num1 = 0;
   double num2 = 0;
   String operand = "";
-  bool calvulationDone = false;
+  bool calculationDone = false;
 
   void buttonPressed(String buttonText) {
     
@@ -41,13 +41,13 @@ class _CalculatorHomeState extends State<CalculatorHome> {
         num1 = 0;
         num2 = 0;
         operand = "";
-        calvulationDone = false;
+        calculationDone = false;
       //Set Operand
       } else if (buttonText == "+" || buttonText == "-" || buttonText == "×" || buttonText == "÷") {
         num1 = double.parse(input);
         operand = buttonText;
         input = "";
-        calvulationDone = false;      
+        calculationDone = false;      
       } else if (buttonText == "=") {
         num2 = double.parse(input);
 
@@ -71,12 +71,12 @@ class _CalculatorHomeState extends State<CalculatorHome> {
         num1 = 0;
         num2 = 0;
         operand = "";
-        calvulationDone = true;
+        calculationDone = true;
       } else {
         //Clear the display and show new number after a calculation is done.
-        if (calvulationDone) {
+        if (calculationDone) {
           input = buttonText;
-          calvulationDone = false;
+          calculationDone = false;
         } else {
           input += buttonText;
         }
